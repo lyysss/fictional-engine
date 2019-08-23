@@ -19,6 +19,7 @@
             return{
                 id: this.$route.params.id,
                 newsdata:{},
+                commentCont:""
             }
         },
         created(){

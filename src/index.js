@@ -5,8 +5,9 @@ import Vue from 'vue';
 import app from './app.vue'
 
 //标签页.vant导航.轮播图. 导入成功后注册
-import { Tabbar, TabbarItem,NavBar,Swipe,SwipeItem,Grid,GridItem,Field,Button,Toast} from 'vant';
-Vue.use(Tabbar).use(TabbarItem).use(NavBar).use(Swipe).use(SwipeItem).use(Grid).use(GridItem).use(Field).use(Button).use(Toast);
+import { Tabbar, TabbarItem,NavBar,Swipe,SwipeItem,Grid,GridItem,Field,Button,Toast,Tab,Tabs,Lazyload} from 'vant';
+Vue.use(Tabbar).use(TabbarItem).use(NavBar).use(Swipe).use(SwipeItem).use(Grid).use(GridItem).use(Field).use(Button).use(Toast).use(Tab).use(Tabs).use(Lazyload);
+
 
 //导入路由模板
 import VueRouter from 'vue-router'

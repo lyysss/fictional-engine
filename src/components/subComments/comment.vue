@@ -12,9 +12,9 @@
                     autosize
                     border
                     maxlength="120"
-            />
+                    />
         </van-cell-group>
-        <van-button type="primary" size="large">发表评论</van-button>
+        <van-button type="primary" size="large" @click="setComment">发表评论</van-button>
 
         <div class="cmt-list">
             <div class="cmt-item" v-for="(item,i) in comments" :key="item.id">
@@ -35,7 +35,7 @@
             return{
                 message:"",
                 pageIndex : 1,
-                comments:[]   //所有的评论数据
+                comments:[], //所有的评论数据
             }
         },
         created(){
@@ -57,8 +57,27 @@
                 this.getComment()
             },
             mounted() {
-                this.$toast('加载数据失败...');
+                this.$toast('评论不能为空...');
             },
+            mounted1() {
+                this.$toast('评论提交成功');
+            },
+
+            setComment(){
+                if(this.message.trim().length === 0){
+                    this.mounted();
+                    return
+                }
+                this.$http.post("api/postcomment/"+this.id,{content: this.message.trim()})
+                    .then(result =>{
+                        if(result.body.status ===0){
+                            var cmt = {user_name:'路人A',add_time:Date.now(),content:this.message.trim()};
+                            this.comments.unshift(cmt);
+                                this.mounted1();
+                        }
+                })
+
+            }
         },
         props: ['id']
     }

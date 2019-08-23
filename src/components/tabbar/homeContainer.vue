@@ -17,7 +17,7 @@
                 <van-grid-item icon="logistics" to="/home/tianya" text="天涯社区"/>
                 <van-grid-item icon="comment-o" to="/home/wangyi" text="网易新闻"/>
 
-                <img class="FastFurious" src="https://img3.doubanio.com/view/photo/raw/public/p2556893191.jpg" alt="">
+                <router-link to="/home/photo"><img class="FastFurious" src="https://img3.doubanio.com/view/photo/raw/public/p2556893191.jpg" alt=""></router-link>
 
             </van-grid>
         </div>
@@ -39,7 +39,7 @@
                     if(result.body.status === 0){
                         this.lunbotuList = result.body.message;
                     }else{
-                        this.$toast('加载数据失败...');
+                        this.mounted();
                     }
                 })
             },

@@ -13,6 +13,7 @@ import shuimu from './components/news/shuimu.vue'
 import tianya from './components/news/tianya.vue'
 import wangyi from './components/news/wangyi.vue'
 import newsInfo from './components/newsInfo/newsInfo.vue'
+import photoList from './components/photos/photolist.vue'
 
 var router = new VueRouter({
     routes: [
@@ -30,7 +31,8 @@ var router = new VueRouter({
         {path: '/home/shuimu', component: shuimu},
         {path: '/home/tianya', component: tianya},
         {path: '/home/wangyi', component: wangyi},
-        {path: '/news/newsInfo/:id', component: newsInfo}
+        {path: '/news/newsInfo/:id', component: newsInfo},
+        {path: '/home/photo', component: photoList}
     ]
 })
 
