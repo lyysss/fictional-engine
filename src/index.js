@@ -5,8 +5,8 @@ import Vue from 'vue';
 import app from './app.vue'
 
 //标签页.vant导航.轮播图. 导入成功后注册
-import { Tabbar, TabbarItem,NavBar,Swipe,SwipeItem,Grid,GridItem,Field,Button,Toast,Tab,Tabs,Lazyload} from 'vant';
-Vue.use(Tabbar).use(TabbarItem).use(NavBar).use(Swipe).use(SwipeItem).use(Grid).use(GridItem).use(Field).use(Button).use(Toast).use(Tab).use(Tabs).use(Lazyload);
+import { Tabbar, TabbarItem,NavBar,Swipe,SwipeItem,Grid,GridItem,Field,Button,Toast,Tab,Tabs,Lazyload,ImagePreview} from 'vant';
+Vue.use(Tabbar).use(TabbarItem).use(NavBar).use(Swipe).use(SwipeItem).use(Grid).use(GridItem).use(Field).use(Button).use(Toast).use(Tab).use(Tabs).use(Lazyload).use(ImagePreview);
 
 
 //导入路由模板
@@ -29,7 +29,9 @@ Vue.http.options.emulateJSON = true;
 //导入组件
 import router from  './router.js'
 
-
+//安装缩略图插件
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
 
 var vm = new Vue({
     el: '#app',

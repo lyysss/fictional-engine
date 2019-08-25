@@ -2,9 +2,15 @@
     <div>
         <van-tabs @click="onClick">
             <van-tab v-for="item in photoTitles" :key="item.id" :title="item.title">
-                <lazy-component>
-                    <img v-for="item in photos" :key="item.id" v-lazy="item.img_url">
-                </lazy-component>
+                <ul class="photosStyle">
+                    <router-link :to="'/home/photo/photoInfo/'+ item.id" v-for="item in photos" :key="item.id" tag="li">
+                        <img v-lazy="item.img_url">
+                        <div class="photosStyleText">
+                            <h3 class="title">{{item.title}}</h3>
+                            <span class="body">{{item.zhaiyao}}</span>
+                        </div>
+                    </router-link>
+                </ul>
             </van-tab>
         </van-tabs>
     </div>
@@ -46,10 +52,8 @@
                 this.getPhotos(this.idddddd);
             },
             getPhotos(id){
-                console.log("test");
                 this.$http.get('api/getimages/'+id).then(result=>{
                     if(result.body.status === 0){
-                        console.log('ok');
                         this.photos = result.body.message;
                     }else{
                         this.mounted()
@@ -64,6 +68,34 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    .photosStyle{
+        padding: 10px;
+        color: #fff;
+        li{
+            margin-bottom: 10px;
+            position: relative;
+        }
+        img{
+            width: 100%;
+            vertical-align: middle;
+        }
+        .photosStyleText{
+            padding: 0 5px;
+            position: absolute;
+            background-color: rgba(0,0,0,0.4);
+            bottom: 0px;
+            max-height: 84px;
+            .title{
+                font-size: 14px;
+            }
+            .body{
+                font-size: 13px;
+            }
+        }
+    }
 </style>

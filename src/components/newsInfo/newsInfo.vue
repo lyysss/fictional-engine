@@ -7,8 +7,8 @@
         </div>
         <hr>
         <div v-html="newsdata.content" class="listInfoText"></div>
-
         <comment-box :id="this.id"></comment-box>
+
     </div>
 </template>
 
