@@ -74,6 +74,7 @@
             },
             addShoppingCart(){
                 this.flag = !this.flag;
+                this.$store.commit('increment',this.value);
             },
             beforeEnter(el){
                 el.style.transform = "translate(0px,0px)";
@@ -94,9 +95,6 @@
             afterEnter(el){
                 this.flag = !this.flag;
             },
-            selectedCount(count){
-                this.selectedCount = count;
-            }
         }
     }
 </script>

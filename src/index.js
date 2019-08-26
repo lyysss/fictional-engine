@@ -29,13 +29,28 @@ Vue.http.options.emulateJSON = true;
 //导入组件
 import router from  './router.js'
 
-//安装缩略图插件
-import VuePreview from 'vue-preview'
-Vue.use(VuePreview)
+//导入vuex
+import Vuex from 'vuex';
+Vue.use(Vuex)
+
+var store = new Vuex.Store({
+    state:{
+        count:0
+    },
+    mutations:{
+        increment(state,value){  //value是调用这个方法的函数传递过来的值。
+            state.count+=parseInt(value);
+        }
+    },
+    getters:{
+
+    }
+});
 
 var vm = new Vue({
     el: '#app',
     render: c => c(app),
-    router
+    router,
+    store : store
 })
 
