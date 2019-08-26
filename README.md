@@ -1,4 +1,4 @@
-# 这是一个简单的基于 vant 构建的网购小项目
+# Vant+Vue  test Project
 
 ## ssssss6
 

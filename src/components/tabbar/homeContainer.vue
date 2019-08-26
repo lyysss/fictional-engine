@@ -17,7 +17,7 @@
                 <van-grid-item icon="logistics" to="/home/tianya" text="天涯社区"/>
                 <van-grid-item icon="comment-o" to="/home/wangyi" text="网易新闻"/>
 
-                <router-link to="/home/photo"><img class="FastFurious" src="https://img3.doubanio.com/view/photo/raw/public/p2556893191.jpg" alt=""></router-link>
+                <router-link to="/home/photo"><img class="FastFurious" style="opacity: 0.6" src="http://5b0988e595225.cdn.sohucs.com/images/20190517/afd7458522e3465b90492346214532c8.jpeg"></router-link>
 
             </van-grid>
         </div>

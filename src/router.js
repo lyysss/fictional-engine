@@ -2,7 +2,7 @@ import VueRouter from 'vue-router'
 import homeContainer from './components/tabbar/homeContainer.vue'
 import newsContainer from './components/tabbar/newsContainer.vue'
 import shoppingCarContainer from './components/tabbar/shoppingCarContainer.vue'
-import searchContainer from './components/tabbar/searchContainer.vue'
+import store from './components/tabbar/store.vue'
 import newsList from './components/news/newsList.vue'
 import hupu from './components/news/hupu.vue'
 import v2ex from './components/news/v2ex.vue'
@@ -15,6 +15,9 @@ import wangyi from './components/news/wangyi.vue'
 import newsInfo from './components/newsInfo/newsInfo.vue'
 import photoList from './components/photos/photolist.vue'
 import photoInfo from './components/photos/photoInfo.vue'
+import goodsItem from './components/goodsItem/goodsItem.vue'
+import goodsDetailed from "./components/goodsItem/goodsDetailed.vue";
+import goodsComent from "./components/goodsItem/goodsComment.vue";
 
 var router = new VueRouter({
     routes: [
@@ -22,7 +25,7 @@ var router = new VueRouter({
         {path: '/home', component: homeContainer},
         {path: '/news', component: newsContainer},
         {path: '/shoppingCar', component: shoppingCarContainer},
-        {path: '/search', component: searchContainer},
+        {path: '/store', component: store},
         {path: '/home/news', component: newsList},
         {path: '/home/hupu', component: hupu},
         {path: '/home/v2ex', component: v2ex},
@@ -34,7 +37,10 @@ var router = new VueRouter({
         {path: '/home/wangyi', component: wangyi},
         {path: '/news/newsInfo/:id', component: newsInfo},
         {path: '/home/photo', component: photoList},
-        {path: '/home/photo/photoInfo/:id', component: photoInfo}
+        {path: '/home/photo/photoInfo/:id', component: photoInfo},
+        {path: '/store/goodsItem/:id', component: goodsItem},
+        {path: '/store/goodsComment/:id', component: goodsComent , name:"goodsComent"},
+        {path: '/store/goodsDetailed/:id', component: goodsDetailed, name:"goodsDetailed"},
     ]
 })
 
