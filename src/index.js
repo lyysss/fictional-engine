@@ -5,9 +5,8 @@ import Vue from 'vue';
 import app from './app.vue'
 
 //标签页.vant导航.轮播图. 导入成功后注册
-import { Tabbar, TabbarItem,NavBar,Swipe,SwipeItem,Grid,GridItem,Field,Button,Toast,Tab,Tabs,Lazyload,Stepper} from 'vant';
-Vue.use(Tabbar).use(TabbarItem).use(NavBar).use(Swipe).use(SwipeItem).use(Grid).use(GridItem).use(Field).use(Button).use(Toast).use(Tab).use(Tabs).use(Lazyload).use(Stepper);
-
+import {SubmitBar,Tabbar,TabbarItem,NavBar,Swipe,SwipeItem,Grid,GridItem,Field,Button,Toast,Tab,Tabs,Lazyload,Stepper,Card} from 'vant';
+Vue.use(SubmitBar).use(Tabbar).use(TabbarItem).use(NavBar).use(Swipe).use(SwipeItem).use(Grid).use(GridItem).use(Field).use(Button).use(Toast).use(Tab).use(Tabs).use(Lazyload).use(Stepper).use(Card);
 
 //导入路由模板
 import VueRouter from 'vue-router'
@@ -33,17 +32,83 @@ import router from  './router.js'
 import Vuex from 'vuex';
 Vue.use(Vuex)
 
+//导入vant dialog弹出确认框.
+import { Dialog } from 'vant';
+
+var goodsCar = JSON.parse(localStorage.getItem('car')||'[]')
+
 var store = new Vuex.Store({
     state:{
-        count:0
+        goodsCar:goodsCar,
+        sum:0
     },
     mutations:{
-        increment(state,value){  //value是调用这个方法的函数传递过来的值。
-            state.count+=parseInt(value);
+        getCountprice(state){
+            state.sum = 0;
+            state.goodsCar.forEach(item=>{
+                state.sum += item.count * item.nowprice
+            });
+            state.sum*=100
+        },
+        increment(state,valueArr){  //value是调用这个方法的函数传递过来的值。
+            var flag = false;
+            state.goodsCar.some(item=>{
+                if(item.id == valueArr.id){
+                    item.count += parseInt(valueArr.count);
+                    flag=true;
+                    return true
+                }
+            });
+            if(!flag){
+                state.goodsCar.push(valueArr)
+            }
+            localStorage.setItem('car',JSON.stringify(state.goodsCar))
+        },
+        GoodsIncrease(state,id){
+            state.goodsCar.some(item=>{
+                if(item.id == id){
+                    item.count +=1;
+                    return true
+                }
+            })
+            localStorage.setItem('car',JSON.stringify(state.goodsCar))
+        },
+        GoodsDelete(state,id){
+            state.goodsCar.some(item=>{
+                if(item.id == id){
+                    if(item.count == 1){
+                        Dialog.confirm({
+                            title: '商品',
+                            message: '确认删除此商品吗?'
+                        }).then(() => {
+                            item.count -=1;
+                            return
+                        }).catch(() => {
+                            item.count +=1;
+                            return
+                        });
+                    }
+                    item.count -=1;
+                }
+            });
+            localStorage.setItem('car',JSON.stringify(state.goodsCar))
         }
     },
     getters:{
-
+        getAllCount(state){
+            let c = 0;
+            state.goodsCar.forEach(item=>{
+                c+=item.count;
+            });
+            return c
+        },
+        getGoodsCount(state){
+            var o ={};
+                state.goodsCar.forEach(item=>{
+                    o[item.id] = item.count
+            });
+            return o
+        },
     }
 });
 
@@ -52,5 +117,5 @@ var vm = new Vue({
     render: c => c(app),
     router,
     store : store
-})
+});
 

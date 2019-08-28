@@ -16,9 +16,12 @@
         <div class="bodyItem">
             <h3>{{ goodsItemData.title }}</h3>
             <hr>
-            <p class="price">市场价：<del>￥{{ goodsItemData.market_price }}</del> &nbsp;&nbsp;&nbsp;销售价：<span class="now">￥{{ goodsItemData.sell_price }}</span></p>
+            <p class="price">市场价：
+                <del>￥{{ goodsItemData.market_price }}</del> &nbsp;&nbsp;&nbsp;销售价：<span class="now">￥{{ goodsItemData.sell_price }}</span>
+            </p>
             <div class="number">
-                <span>购买数量：</span><van-stepper v-model="value" />
+                <span>购买数量：</span>
+                <van-stepper v-model="value"/>
             </div>
             <van-button type="primary">立即购买</van-button>
             <van-button type="info" @click="addShoppingCart">加入购物车</van-button>
@@ -38,61 +41,67 @@
 
 <script>
     export default {
-        data(){
-            return{
+        data() {
+            return {
                 id: this.$route.params.id,
                 value: 1,
-                goodsItemData : {},
+                goodsItemData: {},
                 lunbotu: [],
                 flag: false,
             }
         },
-        created(){
+        created() {
             this.getgoodsItemData();
             this.getgoodsItemIntroduction();
         },
-        methods:{
-            getgoodsItemData(){   //获取商品详情轮播图
-                this.$http.get("api/getthumimages/"+this.id).then(result =>{
-                    if(result.body.status === 0){
+        methods: {
+            getgoodsItemData() {   //获取商品详情轮播图
+                this.$http.get("api/getthumimages/" + this.id).then(result => {
+                    if (result.body.status === 0) {
                         this.lunbotu = result.body.message;
                     }
                 })
             },
-            getgoodsItemIntroduction(){
-                this.$http.get("api/goods/getinfo/"+this.id).then(result =>{
-                    if(result.body.status === 0){
+            getgoodsItemIntroduction() {
+                this.$http.get("api/goods/getinfo/" + this.id).then(result => {
+                    if (result.body.status === 0) {
                         this.goodsItemData = result.body.message[0];
                     }
                 })
             },
-            goDetail(id){  //编程式导航组件
-                this.$router.push({ name:"goodsDetailed",params:{ id } });
+            goDetail(id) {  //编程式导航组件
+                this.$router.push({name: "goodsDetailed", params: {id}});
             },
-            goComment(id){
-                this.$router.push({ name:"goodsComent",params:{ id } });
+            goComment(id) {
+                this.$router.push({name: "goodsComent", params: {id}});
             },
-            addShoppingCart(){
+            addShoppingCart() {
                 this.flag = !this.flag;
-                this.$store.commit('increment',this.value);
+                let goodsArr = {
+                    id: this.id,
+                    nowprice: this.goodsItemData.sell_price,
+                    count: this.value,
+                    selected: true,
+                };
+                this.$store.commit('increment', goodsArr);
             },
-            beforeEnter(el){
+            beforeEnter(el) {
                 el.style.transform = "translate(0px,0px)";
             },
-            enter(el,done){
+            enter(el, done) {
                 el.offsetWidth;
                 const ballPosition = this.$refs.ball.getBoundingClientRect();
                 const badgePosition = document
                     .getElementById("badge")
                     .getBoundingClientRect();
-                const xDist = badgePosition.left - ballPosition.left;
+                const xDist = badgePosition.left+45 - ballPosition.left;
                 const yDist = badgePosition.top - ballPosition.top;
 
                 el.style.transform = `translate(${xDist}px, ${yDist}px)`;
-                el.style.transition = "all 0.5s cubic-bezier(.4,-0.3,1,.68)";
+                    el.style.transition = "all 0.5s cubic-bezier(.4,-0.3,1,.68)";
                 done();
             },
-            afterEnter(el){
+            afterEnter(el) {
                 this.flag = !this.flag;
             },
         }
@@ -100,20 +109,22 @@
 </script>
 
 <style scoped lang="less">
-    *{
+    * {
         margin: 0;
         padding: 0;
     }
-    .goods-Item{
+
+    .goods-Item {
         background-color: #ddd;
         width: 100%;
         overflow: hidden;
-        > .van-button{
+
+        > .van-button {
             width: 95%;
             margin: 5px 10px;
         }
 
-        .redball{
+        .redball {
             width: 8px;
             height: 8px;
             background-color: red;
@@ -121,10 +132,10 @@
             border-radius: 50%;
             top: 431px;
             left: 126px;
-            z-index:  99;
+            z-index: 99;
         }
 
-        >div{
+        > div {
             width: 95%;
             margin: 10px auto;
             background-color: #fff;
@@ -133,39 +144,47 @@
             padding: 5px;
             border-radius: 5px;
         }
-        .titile{
+
+        .titile {
             height: 200px;
             text-align: center;
-            img{
+
+            img {
                 height: 100%;
             }
         }
-        .bodyItem{
-            h3{
+
+        .bodyItem {
+            h3 {
                 font-size: 18px;
                 line-height: 40px;
                 margin-left: 10px;
                 margin-bottom: 10px;
             }
-            .price{
+
+            .price {
                 margin: 25px 10px;
                 font-size: 14px;
                 color: #666;
-                .now{
+
+                .now {
                     font-weight: bold;
                     color: red;
                 }
             }
-            .number{
+
+            .number {
                 margin: 20px 10px;
                 display: flex;
                 flex-wrap: wrap;
-                span{
+
+                span {
                     font-size: 14px;
                     line-height: 30px;
                 }
             }
-            button{
+
+            button {
                 margin-left: 10px;
                 margin-bottom: 8px;
                 height: 35px;
@@ -173,15 +192,20 @@
                 padding: 0 15px;
                 color: #fff;
             }
-            button:last-child{margin-left: 0}
+
+            button:last-child {
+                margin-left: 0
+            }
         }
-        .floot{
-            h3{
+
+        .floot {
+            h3 {
                 font-size: 18px;
                 line-height: 40px;
                 margin-left: 10px;
             }
-            p{
+
+            p {
                 color: #666;
                 font-size: 14px;
                 line-height: 30px;

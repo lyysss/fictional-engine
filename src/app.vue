@@ -12,7 +12,7 @@
         <van-tabbar route active-color="#07c160" inactive-color="#000" fixed>
             <van-tabbar-item replace to="/home" icon="home-o">首页</van-tabbar-item>
             <van-tabbar-item replace to="/news" icon="contact">新闻评论</van-tabbar-item>
-            <van-tabbar-item replace to="/shoppingCar" icon="shopping-cart-o" id="badge" :info="this.$store.state.count">购物车</van-tabbar-item>
+            <van-tabbar-item replace to="/shoppingCar" icon="shopping-cart-o" id="badge" :info="$store.getters.getAllCount">购物车</van-tabbar-item>
             <van-tabbar-item replace to="/store" icon="gift-o">Store</van-tabbar-item>
         </van-tabbar>
     </div>
